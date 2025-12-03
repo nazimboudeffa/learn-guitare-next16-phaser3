@@ -53,16 +53,17 @@ export function freqToStringName(freq) {
 }
 
 export default class CourseScene extends Phaser.Scene {
-    destroyed = false;
+  destroyed = false;
   constructor() {
     super({ key: "CourseScene" });
     console.log('CourseScene constructor called');
-      // Ajoute le listener d'événement pitch
-      this._pitchListener = (e) => {
-        if (e && e.detail) {
-          this.onPitch(e.detail);
-        }
-      };
+    // Ajoute le listener d'événement pitch
+    this._pitchListener = (e) => {
+      console.log('[CourseScene] pitch event reçu', e);
+      if (e && e.detail) {
+        this.onPitch(e.detail);
+      }
+    };
   }
 
   init(data) {
@@ -75,7 +76,8 @@ export default class CourseScene extends Phaser.Scene {
       console.warn('CourseScene init: no notes found in course', this.course);
     }
     // Ajoute le listener à l'init
-    window.addEventListener('pitch', this._pitchListener);
+    globalThis.addEventListener('pitch', this._pitchListener);
+    console.log('[CourseScene] Listener pitch ajouté');
   }
 
   preload() {
@@ -158,10 +160,19 @@ export default class CourseScene extends Phaser.Scene {
 
   onPitch({ pitch, clarity }) {
     // Si plus de notes à jouer, on ignore les pitch events
-    if (
-      this.notesGroup &&
-      typeof this.notesGroup.getLength === 'function'
-    ) {
+    if (!this.notesGroup || typeof this.notesGroup.getLength !== 'function') {
+      // notesGroup non initialisé ou détruit, on ignore
+      return;
+    }
+    
+    let notesCount = 0;
+    try {
+      notesCount = this.notesGroup.getLength();
+    } catch (e) {
+      console.warn('Erreur getLength sur notesGroup (Phaser détruit ou corrompu)', e);
+      return;
+    }
+    if (notesCount === 0) {
       // Plus de notes à jouer, on ignore
       return;
     }
@@ -405,12 +416,14 @@ export default class CourseScene extends Phaser.Scene {
 
   // Nettoyage du listener quand la scène est détruite
   shutdown() {
-    window.removeEventListener('pitch', this._pitchListener);
+    globalThis.removeEventListener('pitch', this._pitchListener);
+    console.log('[CourseScene] Listener pitch retiré (shutdown)');
   }
 
   destroy() {
     this.destroyed = true;
-    window.removeEventListener('pitch', this._pitchListener);
+    globalThis.removeEventListener('pitch', this._pitchListener);
+    console.log('[CourseScene] Listener pitch retiré (destroy)');
     super.destroy();
     if (this.destroyed) return;
   }

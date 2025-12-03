@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 // MenuScene is dynamically imported below, no need for static import
 // Remove top-level imports for Phaser and scenes
 // Import your scene here
@@ -29,7 +29,19 @@ type PhaserGameProps = {
 export default function PhaserGame({ courseKey, course, listening }: Readonly<PhaserGameProps>) {
   const gameRef = useRef<HTMLDivElement | null>(null);
   const phaserInstance = useRef<Phaser.Game | null>(null);
-  console.log('PhaserGame received course:', course);
+  const [dimensions, setDimensions] = useState({ width: 900, height: 600 });
+
+  useEffect(() => {
+    function updateDimensions() {
+      const isMobile = window.innerWidth < 700;
+      const width = isMobile ? window.innerWidth : 900;
+      const height = isMobile ? window.innerHeight : 600;
+      setDimensions({ width, height });
+    }
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -42,11 +54,15 @@ export default function PhaserGame({ courseKey, course, listening }: Readonly<Ph
       if (!isMounted) return;
       const config = {
         type: Phaser.AUTO,
-        width: 900,
-        height: 600,
+        width: dimensions.width,
+        height: dimensions.height,
         parent: gameRef.current,
         backgroundColor: "#222",
         scene: [MenuScene, CourseScene, StatsScene],
+        scale: {
+          mode: Phaser.Scale.FIT,
+          autoCenter: Phaser.Scale.CENTER_BOTH,
+        },
       };
       phaserInstance.current = new Phaser.Game(config);
       phaserInstance.current.scene.start('MenuScene', {
@@ -61,12 +77,12 @@ export default function PhaserGame({ courseKey, course, listening }: Readonly<Ph
         phaserInstance.current = null;
       }
     };
-  }, [courseKey, course, listening]);
+  }, [courseKey, course, listening, dimensions]);
 
   if (!listening) return null;
   return (
-    <div style={{ position: "relative", width: 900, height: 600, margin: "0 auto" }}>
-      <div ref={gameRef} style={{ width: 900, height: 600 }} />
+    <div style={{ position: "relative", width: dimensions.width, height: dimensions.height, maxWidth: '100vw', maxHeight: '100vh', margin: "0 auto" }}>
+      <div ref={gameRef} style={{ width: '100%', height: '100%' }} />
     </div>
   );
 }

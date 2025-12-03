@@ -56,7 +56,7 @@ export default function CoursePage() {
               try {
                 audioRef.current = await startAudio(({ pitch, clarity }: { pitch: number; clarity: number }) => {
                   console.log('Pitch détecté, dispatch pitch:', pitch, clarity);
-                  window.dispatchEvent(new CustomEvent('pitch', { detail: { pitch, clarity } }));
+                  globalThis.dispatchEvent(new CustomEvent('pitch', { detail: { pitch, clarity } }));
                 });
                 setListening(true);
               } catch (err: unknown) {
