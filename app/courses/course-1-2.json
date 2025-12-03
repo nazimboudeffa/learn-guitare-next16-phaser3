@@ -1,0 +1,14 @@
+{
+  "id": "course-1-2",
+  "title": "Espacement lent",
+  "description": "Joue chaque corde ouverte avec un grand intervalle de temps.",
+  "level": "beginner",
+  "notes": [
+    { "string": "E", "fret": 0, "time": 0 },
+    { "string": "A", "fret": 0, "time": 3 },
+    { "string": "D", "fret": 0, "time": 6 },
+    { "string": "G", "fret": 0, "time": 9 },
+    { "string": "B", "fret": 0, "time": 12 },
+    { "string": "e", "fret": 0,"time": 15 }
+  ]
+}

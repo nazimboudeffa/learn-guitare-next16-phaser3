@@ -1,0 +1,14 @@
+{
+  "id": "course-2-1",
+  "title": "Gamme de Mi",
+  "description": "Joue la gamme de Mi sur chaque corde ouverte.",
+  "level": "beginner",
+  "notes": [
+    { "string": "E", "fret": 0, "time": 0 },
+    { "string": "A", "fret": 0, "time": 1 },
+    { "string": "D", "fret": 0, "time": 2 },
+    { "string": "G", "fret": 0, "time": 3 },
+    { "string": "B", "fret": 0, "time": 4 },
+    { "string": "e", "fret": 0, "time": 5 }
+  ]
+}
