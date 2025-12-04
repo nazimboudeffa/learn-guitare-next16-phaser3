@@ -23,19 +23,19 @@ export default function Home() {
             <Link
               key={course.id}
               href={`/courses/${course.id}`}
-              className="group block"
+              className="group block h-full"
             >
-              <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 h-full min-h-[340px] max-h-[340px]">
                 <div className="w-16 h-16 bg-linear-to-br from-blue-200 to-purple-200 rounded-xl flex items-center justify-center text-3xl mb-4">
-                  🎸
+                  🎓
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
                   {course.title || course.name}
                 </h2>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 line-clamp-3">
                   {course.description}
                 </p>
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full mt-auto">
                   <span className="text-sm font-semibold text-gray-500">
                     Niveau : {course.level || 'N/A'}
                   </span>
