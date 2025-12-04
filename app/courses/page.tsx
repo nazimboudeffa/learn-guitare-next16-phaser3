@@ -12,8 +12,7 @@ export default function Home() {
       <Navbar />
       <main className="relative min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-purple-100">
         <div className="w-full max-w-3xl mx-auto text-center mb-10">
-          <span className="text-6xl mb-4 block">🎸</span>
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-4 drop-shadow-lg">Cours disponibles</h1>
+          <h1 className="text-5xl font-extrabold text-gray-900 mt3 mb-3 drop-shadow-lg">Cours disponibles</h1>
           <p className="text-xl text-gray-700 mb-6 max-w-2xl mx-auto">
             Sélectionne un cours pour commencer à jouer !
           </p>
