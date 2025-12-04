@@ -1,11 +1,13 @@
 
 "use client";
 import Link from "next/link";
+import Navbar from "./components/Navbar";
 // No scroll or useRef needed
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-linear-to-br from-blue-50 to-purple-100 flex flex-col items-center justify-start p-0">
+      <Navbar />
       {/* Hero Section */}
       <section className="w-full py-16 px-4 flex flex-col items-center text-center bg-linear-to-br from-blue-200 to-purple-200">
         <div className="mb-6">

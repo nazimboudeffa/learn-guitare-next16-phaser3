@@ -1,6 +1,6 @@
-
 "use client";
 import Link from "next/link";
+import Navbar from "../components/Navbar";
 // No scroll or useRef needed
 import { getCourses } from "./courses-list";
 
@@ -8,28 +8,24 @@ export default function Home() {
   const courses = getCourses();
 
   return (
-    <main className="max-w-4xl mx-auto p-4 md:p-8">
-      <div className="w-full">
-        <header className="mb-3 text-center">
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">
-            Cours disponibles
-          </h1>
-          <p className="text-xl text-gray-600">
+    <>
+      <Navbar />
+      <main className="relative min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-purple-100">
+        <div className="w-full max-w-3xl mx-auto text-center mb-10">
+          <span className="text-6xl mb-4 block">🎸</span>
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-4 drop-shadow-lg">Cours disponibles</h1>
+          <p className="text-xl text-gray-700 mb-6 max-w-2xl mx-auto">
             Sélectionne un cours pour commencer à jouer !
           </p>
-        </header>
-      </div>
-
-      {/* Courses Section - Horizontal Scroll */}
-      <section className="mb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        </div>
+        <section className="w-full max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {courses.map((course) => (
             <Link
               key={course.id}
               href={`/courses/${course.id}`}
               className="group block"
             >
-              <div className="bg-white rounded-2xl shadow-md p-6 transition-all hover:shadow-xl hover:-translate-y-1 h-full">
+              <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-linear-to-br from-blue-200 to-purple-200 rounded-xl flex items-center justify-center text-3xl mb-4">
                   🎸
                 </div>
@@ -39,7 +35,7 @@ export default function Home() {
                 <p className="text-gray-600 mb-4">
                   {course.description}
                 </p>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between w-full">
                   <span className="text-sm font-semibold text-gray-500">
                     Niveau : {course.level || 'N/A'}
                   </span>
@@ -55,8 +51,8 @@ export default function Home() {
               </div>
             </Link>
           ))}
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
