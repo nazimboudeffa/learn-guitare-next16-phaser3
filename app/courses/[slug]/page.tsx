@@ -1,6 +1,6 @@
 "use client";
 import { useParams, notFound } from "next/navigation";
-import { getCourses } from "../index";
+import { getCourses } from "../courses-list/index";
 import PhaserGame from "./PhaserGame";
 import { useState, useEffect, useRef } from "react";
 import { startAudio, stopAudio } from "../../audio";

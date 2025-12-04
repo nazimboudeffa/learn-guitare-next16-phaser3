@@ -48,9 +48,9 @@ export default function PhaserGame({ courseKey, course, listening }: Readonly<Ph
     (async () => {
       if (!listening) return;
       const Phaser = (await import("phaser")).default ?? (await import("phaser"));
-      const { MenuScene } = await import("../../CourseScene.js");
-      const CourseScene = (await import("../../CourseScene.js")).default;
-      const StatsScene = (await import("../../StatsScene.js")).default;
+      const { MenuScene } = await import("./CourseScene.js");
+      const CourseScene = (await import("./CourseScene.js")).default;
+      const StatsScene = (await import("./StatsScene.js")).default;
       if (!isMounted) return;
       const config = {
         type: Phaser.AUTO,
